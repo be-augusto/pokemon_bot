@@ -51,6 +51,34 @@ CREATE TABLE IF NOT EXISTS shop (
 """)
 conn.commit()
 
+cursor.execute("SELECT COUNT(*) FROM shop")
+if cursor.fetchone()[0] == 0:
+    shop_items = [
+        ("fire stone", 1000),
+        ("water stone", 1000),
+        ("thunder stone", 1000),
+        ("leaf stone", 1000),
+        ("moon stone", 1500),
+        ("sun stone", 1500),
+        ("shiny stone", 2000),
+        ("dusk stone", 2000),
+        ("dawn stone", 2000),
+        ("ice stone", 2000),
+        ("rare candy", 3000),
+        ("king's rock", 2500),
+        ("metal coat", 2500),
+        ("dragon scale", 2500),
+        ("up-grade", 2500),
+        ("protector", 2500),
+        ("electirizer", 2500),
+        ("magmarizer", 2500),
+        ("dubious disc", 2500),
+        ("reaper cloth", 2500),
+        ("prism scale", 2500)
+    ]
+    cursor.executemany("INSERT INTO shop (item, price) VALUES (?, ?)", shop_items)
+    conn.commit()
+
 
 def is_shiny():
     return random.randint(1, 4096) == 1
